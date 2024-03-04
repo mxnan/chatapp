@@ -12,7 +12,7 @@ export default function ChatInput() {
     <div className="px-3 py-6 border-t  ">
       <Input
         placeholder="send message"
-        className="font-bold"
+        className="font-bold text-foreground"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSendmessage(e.currentTarget.value);

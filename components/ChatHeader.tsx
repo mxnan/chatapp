@@ -39,9 +39,9 @@ export default function ChatHeader({ user }: { user: User | undefined }) {
           </div>
         </div>
         {user ? (
-          <Button onClick={handleLogoutwithGithub}>Logout</Button>
+          <Button variant={"outline"} onClick={handleLogoutwithGithub}>Logout</Button>
         ) : (
-          <Button onClick={handleLoginwithGithub}>Login</Button>
+          <Button variant={"outline"} onClick={handleLoginwithGithub}>Login</Button>
         )}
       </div>
     </div>

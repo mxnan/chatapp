@@ -54,6 +54,6 @@
     @apply border-gray-400;
   }
   body {
-    @apply bg-stone-300 text-gray-900;
+    @apply bg-foreground text-background;
   }
 }

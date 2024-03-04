@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <>
-      <div className="max-w-3xl mx-auto md:py-10 max-md:px-4 max-md:py-2 h-screen">
+      <div className="max-w-5xl mx-auto md:py-10 max-md:px-4 max-md:py-2 h-screen">
         <div className="h-full border rounded-md flex flex-col">
           <ChatHeader user={data.session?.user} />
           <div className="flex-1 flex flex-col p-3 pt-5 h-full overflow-y-scroll">

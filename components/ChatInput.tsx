@@ -3,14 +3,16 @@
 import React from "react";
 import { Input } from "./ui/input";
 import { supabaseBrowser } from "@/lib/supabase/browser";
+import { toast } from "sonner";
 
 export default function ChatInput() {
-
   const supabase = supabaseBrowser();
-  const handleSendmessage = (text: string) => {
-    alert(text);
-    // call to supabase
-    // video 48:45
+  const handleSendmessage = async (text: string) => {
+    const { error } = await supabase.from("messages").insert({ text });
+
+    if (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <div className="px-3 py-4 border-t  ">
@@ -27,9 +29,3 @@ export default function ChatInput() {
     </div>
   );
 }
-
-
-
-
-
-

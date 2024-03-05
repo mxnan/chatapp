@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body className={space_Grotesk.className}>
         {" "}
-        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="dark" >
+        <ThemeProvider attribute="class" defaultTheme="dark"  >
           {children}
         </ThemeProvider>
       </body>

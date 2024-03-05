@@ -54,6 +54,10 @@
     @apply border-gray-400;
   }
   body {
-    @apply bg-foreground text-background;
+    @apply bg-gray-100 text-black;
   }
+}
+
+.mostly-customized-scrollbar {
+  outline: 2px cornflowerblue;
 }

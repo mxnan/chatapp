@@ -12,10 +12,10 @@ export default async function Page() {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto md:py-10 max-md:px-4 max-md:py-2 h-screen">
+      <div className="max-w-5xl mx-auto md:py-10 md:px-6 max-md:px-4 max-md:py-2 h-screen">
         <div className="h-full border rounded-md flex flex-col">
           <ChatHeader user={data.session?.user} />
-          <div className="flex-1 flex flex-col p-3 pt-5 h-full overflow-y-scroll">
+          <div className="mostly-customized-scrollbar flex-1 flex flex-col p-3 pt-5 h-full overflow-y-scroll">
             <div className="flex-1"></div>
             <div className="space-y-7">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
@@ -32,7 +32,10 @@ export default async function Page() {
                         </div>
                         <p className="text-black">
                           Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Nesciunt laudantium animi libero natus quam.
+                          elit. Temporibus voluptatibus iste quos corporis totam
+                          itaque nam excepturi atque quae sed ex consequuntur
+                          ut, voluptatem architecto a repudiandae eligendi minus
+                          velit?
                         </p>
                       </div>
                     </div>

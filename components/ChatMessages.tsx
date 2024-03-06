@@ -8,7 +8,6 @@ export default async function ChatMessages() {
 
   const { data } = await supabase.from("messages").select("*,users(*)");
 
-  console.log(data);
   return (
     <Suspense fallback={"loading .. "}>
       <ListMessages />

@@ -2,6 +2,7 @@ import { Imessage } from "@/lib/store/messages";
 import Image from "next/image";
 import React from "react";
 
+//video 1:05:10 add optimistic message
 export default function Message({ message }: { message: Imessage }) {
   return (
     <div className="flex gap-2">

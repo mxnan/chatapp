@@ -36,7 +36,7 @@ export default function Message({ message }: { message: Imessage }) {
           </div>
           {message.users?.id === user?.id && <MessageMenu message={message} />}
         </div>
-        <p className="text-black">{message.text}</p>
+        <p className="">{message.text}</p>
       </div>
     </div>
   );

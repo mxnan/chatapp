@@ -17,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning>
       <body className={space_Grotesk.className}>
         {" "}
-        <ThemeProvider attribute="class" defaultTheme="dark"  >
+        <ThemeProvider attribute="class" defaultTheme="system"  >
           {children}
           <Toaster position="top-center" />
         </ThemeProvider>

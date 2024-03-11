@@ -45,7 +45,7 @@ export default function ChatInput() {
     <div className="px-3 py-4 border-t  ">
       <Input
         placeholder="send message"
-        className="font-bold placeholder:capitalize placeholder:text-black text-foreground"
+        className="font-bold placeholder:capitalize "
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSendmessage(e.currentTarget.value);

@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
+import { ModeToggle } from "./ModeToggle";
 
 export default function ChatHeader({ user }: { user: User | undefined }) {
   //router for refreshing from next/navigation
@@ -38,6 +39,7 @@ export default function ChatHeader({ user }: { user: User | undefined }) {
             <h1 className="text-sm">2 online</h1>
           </div>
         </div>
+        <ModeToggle />
         {user ? (
           <Button variant={"outline"} onClick={handleLogoutwithGithub}>Logout</Button>
         ) : (

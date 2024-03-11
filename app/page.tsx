@@ -13,14 +13,21 @@ export default async function Page() {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto md:py-10 md:px-6 max-md:px-4 max-md:py-2 h-screen">
-        <div className="h-full border rounded-md flex flex-col">
-          <ChatHeader user={data.session?.user} />
-          <ChatMessages />
-          <ChatInput />
+      <main
+        className="w-full h-full bg-primary
+      
+      "
+      >
+        {" "}
+        <div className=" max-w-6xl mx-auto  md:py-10 md:px-6 max-md:px-4 max-md:py-2 h-screen">
+          <div className="h-full border    bg-background text-foreground  dark:bg-[#202123] bg-[#f3efef] rounded-md flex flex-col">
+            <ChatHeader user={data.session?.user} />
+            <ChatMessages />
+            <ChatInput />
+          </div>
         </div>
-      </div>
-      <InitUser user={data.session?.user} />
+        <InitUser user={data.session?.user} />
+      </main>
     </>
   );
 }

@@ -1,9 +1,19 @@
-import { Imessage } from "@/lib/store/messages";
+import { Imessage, useMessage } from "@/lib/store/messages";
 import Image from "next/image";
 import React from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
+import { useUser } from "@/lib/store/user";
 
-//video 1:05:10 add optimistic message
 export default function Message({ message }: { message: Imessage }) {
+  const user = useUser((state) => state.user);
   return (
     <div className="flex gap-2">
       <div>
@@ -17,14 +27,48 @@ export default function Message({ message }: { message: Imessage }) {
       </div>
 
       <div className="flex-1">
-        <div className="flex gap-2 justify-start items-center">
-          <h1 className="font-black">{message.users?.display_name}</h1>
-          <h1 className="text-sm ">
-            {new Date(message.created_at).toDateString()}
-          </h1>
+        <div className="flex  items-center justify-between">
+          <div className="flex items-center gap-1">
+            <h1 className="font-black">{message.users?.display_name}</h1>
+            <h1 className="text-sm ">
+              {new Date(message.created_at).toDateString()}
+            </h1>
+          </div>
+          {message.users?.id === user?.id && <MessageMenu message={message} />}
         </div>
         <p className="text-black">{message.text}</p>
       </div>
     </div>
   );
 }
+
+const MessageMenu = ({message}: {message: Imessage}) => {
+  const setActionMessage = useMessage((state) => state.setActionMessage);
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <ChevronDown />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Action</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            document.getElementById("edit-message")?.click();
+            setActionMessage(message);
+          }}
+        >
+          Edit
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            document.getElementById("trigger-delete")?.click();
+            setActionMessage(message);
+          }}
+        >
+          Delete
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};

@@ -17,16 +17,20 @@ import { toast } from "sonner";
 
 export function DeleteAlert() {
   const actionMessage = useMessage((state) => state.actionMessage);
+  const optimisticDeleteMessage = useMessage(
+    (state) => state.optimisticDeleteMessage
+  );
 
   const handleDeleteMessage = async () => {
     const supabase = supabaseBrowser();
+    optimisticDeleteMessage(actionMessage?.id || "");
     const { error } = await supabase
       .from("messages")
       .delete()
       .eq("id", actionMessage?.id || "");
     if (error) {
       toast.error(error.message);
-    } else {;
+    } else {
       toast.success("Message Deleted");
     }
   };
@@ -41,7 +45,6 @@ export function DeleteAlert() {
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
-            {actionMessage?.id}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

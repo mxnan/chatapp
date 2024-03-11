@@ -19,6 +19,7 @@ interface MessageState {
   actionMessage: Imessage | undefined;
   addMessage: (message: Imessage) => void;
   setActionMessage: (message: Imessage | undefined) => void;
+  optimisticDeleteMessage: (messageId: string) => void;
 }
 
 export const useMessage = create<MessageState>()((set) => ({
@@ -32,4 +33,10 @@ export const useMessage = create<MessageState>()((set) => ({
     set(() => ({
       actionMessage: message,
     })),
+  optimisticDeleteMessage: (messageId) =>
+    set((state) => {
+      return {
+        messages: state.messages.filter((message) => message.id !== messageId),
+      };
+    }),
 }));

@@ -39,12 +39,18 @@ export default function ChatHeader({ user }: { user: User | undefined }) {
             <h1 className="text-sm">2 online</h1>
           </div>
         </div>
-        <ModeToggle />
-        {user ? (
-          <Button variant={"outline"} onClick={handleLogoutwithGithub}>Logout</Button>
-        ) : (
-          <Button variant={"outline"} onClick={handleLoginwithGithub}>Login</Button>
-        )}
+        <div className="flex items-center gap-2">
+          <ModeToggle />
+          {user ? (
+            <Button variant={"outline"} onClick={handleLogoutwithGithub}>
+              Logout
+            </Button>
+          ) : (
+            <Button variant={"outline"} onClick={handleLoginwithGithub}>
+              Login
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

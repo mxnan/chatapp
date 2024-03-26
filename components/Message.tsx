@@ -33,6 +33,9 @@ export default function Message({ message }: { message: Imessage }) {
             <h1 className="text-sm ">
               {new Date(message.created_at).toDateString()}
             </h1>
+            {message.is_edit && (
+              <h1 className="text-sm text-gray-400">edited</h1>
+            )}
           </div>
           {message.users?.id === user?.id && <MessageMenu message={message} />}
         </div>
@@ -42,7 +45,7 @@ export default function Message({ message }: { message: Imessage }) {
   );
 }
 
-const MessageMenu = ({message}: {message: Imessage}) => {
+const MessageMenu = ({ message }: { message: Imessage }) => {
   const setActionMessage = useMessage((state) => state.setActionMessage);
   return (
     <DropdownMenu>
@@ -54,7 +57,7 @@ const MessageMenu = ({message}: {message: Imessage}) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
-            document.getElementById("edit-message")?.click();
+            document.getElementById("trigger-edit")?.click();
             setActionMessage(message);
           }}
         >

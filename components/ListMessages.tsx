@@ -1,17 +1,23 @@
 "use client";
 
 import { Imessage, useMessage } from "@/lib/store/messages";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Message from "./Message";
 import { DeleteAlert, EditAlert } from "./MessageActions";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { toast } from "sonner";
 
 export default function ListMessages() {
+  //for scrolling bottom
+  const scrollRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  //for messages
+
   const { messages, addMessage, optimisticIds } = useMessage((state) => state);
 
   const supabase = supabaseBrowser();
 
+  //optimistic realtime updates
   useEffect(() => {
     const channel = supabase
       .channel("chat-room")
@@ -43,8 +49,20 @@ export default function ListMessages() {
       channel.unsubscribe();
     };
   }, [addMessage, messages, optimisticIds, supabase]);
+
+  //scroll bottom on new message
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+  }, [messages]);
+  
   return (
-    <div className="mostly-customized-scrollbar flex-1 flex flex-col p-3 pt-5 h-full overflow-y-scroll">
+    <div
+      ref={scrollRef}
+      className="mostly-customized-scrollbar flex-1 flex flex-col p-3 pt-5 h-full overflow-y-scroll"
+    >
       <div className="flex-1"></div>
       <div className="space-y-7">
         {messages.map((value, index) => {

@@ -1,5 +1,7 @@
 import { User } from "@supabase/supabase-js";
 import { create } from "zustand";
+import { supabaseBrowser } from "../supabase/browser";
+import { toast } from "sonner";
 
 export type Imessage = {
   created_at: string;
@@ -46,15 +48,32 @@ export const useMessage = create<MessageState>()((set) => ({
         messages: state.messages.filter((message) => message.id !== messageId),
       };
     }),
-  optimisticUpdateMessage: (updateMessage) =>
-    set((state) => {
-      return {
-        messages: state.messages.filter((message) => {
-          if (message.id === updateMessage.id) {
-            (message.text = updateMessage.text),
-              (message.is_edit = updateMessage.is_edit);
-          }
-        }),
-      };
-    }),
+  optimisticUpdateMessage: (updatedMessage) => {
+    const updateMessageWithUser = async () => {
+      const supabase = supabaseBrowser();
+
+      const { error, data } = await supabase
+        .from("users")
+        .select("*")
+        .eq("id", updatedMessage.send_by)
+        .single();
+
+      if (error) {
+        toast.error(error.message);
+      } else {
+        const messageWithUpdatedUser = {
+          ...updatedMessage,
+          users: data,
+        };
+
+        set((state) => ({
+          messages: state.messages.map((message) =>
+            message.id === updatedMessage.id ? messageWithUpdatedUser : message
+          ),
+        }));
+      }
+    };
+
+    updateMessageWithUser();
+  },
 }));

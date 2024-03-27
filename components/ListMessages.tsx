@@ -13,7 +13,13 @@ export default function ListMessages() {
 
   //for messages
 
-  const { messages, addMessage, optimisticIds } = useMessage((state) => state);
+  const {
+    messages,
+    addMessage,
+    optimisticIds,
+    optimisticDeleteMessage,
+    optimisticUpdateMessage,
+  } = useMessage((state) => state);
 
   const supabase = supabaseBrowser();
 
@@ -43,12 +49,27 @@ export default function ListMessages() {
           }
         }
       )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "messages" },
+        (payload) => {
+          optimisticDeleteMessage(payload.old.id);
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "messages" },
+        (payload) => {
+          optimisticUpdateMessage(payload.new as Imessage);
+        }
+      )
       .subscribe();
 
     return () => {
       channel.unsubscribe();
     };
-  }, [addMessage, messages, optimisticIds, supabase]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addMessage]);
 
   //scroll bottom on new message
   useEffect(() => {
@@ -57,11 +78,12 @@ export default function ListMessages() {
       scrollContainer.scrollTop = scrollContainer.scrollHeight;
     }
   }, [messages]);
-  
+
   return (
     <div
       ref={scrollRef}
-      className="mostly-customized-scrollbar flex-1 flex flex-col p-3 pt-5 h-full overflow-y-scroll"
+      className="mostly-customized-scrollbar 
+      flex-1 flex flex-col p-3 pt-5 h-full overflow-y-scroll"
     >
       <div className="flex-1"></div>
       <div className="space-y-7">

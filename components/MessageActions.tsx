@@ -24,7 +24,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { useRef } from "react";
 
 export function DeleteAlert() {
@@ -98,7 +98,7 @@ export function EditAlert() {
         toast.success("Message Updated ");
       }
       document.getElementById("trigger-edit")?.click();
-    }else{
+    } else {
       document.getElementById("trigger-edit")?.click();
       document.getElementById("trigger-delete")?.click();
     }
